@@ -34,4 +34,4 @@ build/
 
 ### React App ###
 src/fronend/node_modules/
-src/fronend/package-lock.json
+/src/frontend/package-lock.json
