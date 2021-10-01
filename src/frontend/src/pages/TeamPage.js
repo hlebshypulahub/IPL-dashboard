@@ -4,25 +4,22 @@ import { React, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { MatchDetailCard } from "../components/MatchDetailCard";
 import { MatchSmallCard } from "../components/MatchSmallCard";
+import { Link } from "react-router-dom";
 
 export const TeamPage = () => {
     const [team, setTeam] = useState({ matches: [] });
     const { teamName } = useParams();
 
     useEffect(() => {
-        const fetchMatches = async () => {
+        const fetchTeam = async () => {
             const response = await fetch(
                 `http://localhost:8081/team/${teamName}`
             );
-
             const data = await response.json();
-
-            // console.log(data);
-
             setTeam(data);
         };
 
-        fetchMatches();
+        fetchTeam();
     }, [teamName]);
 
     if (!team || !team.teamName) {
@@ -62,7 +59,11 @@ export const TeamPage = () => {
                 <MatchSmallCard teamName={team.teamName} match={match} />
             ))}
             <div className="more-section">
-                <a href="#">More ></a>
+                <Link
+                    to={`/teams/${teamName}/matches/${process.env.REACT_APP_DATA_END_YEAR}`}
+                >
+                    <a href="#">More ></a>
+                </Link>
             </div>
         </div>
     );
